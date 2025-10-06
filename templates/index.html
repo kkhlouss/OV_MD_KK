@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="lv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KinoTupik – Filmu katalogs un recenzijas</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav">
+        <a href="#home" class="logo">KinoTupik</a>
+        <a href="#about">Par mums</a>
+        <a href="#catalog">Filmu katalogs</a>
+        <a href="#reviews">Recenzijas</a>
+        <a href="#contact">Sazināties</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <!-- Column 1: Hero + Popular + Selected -->
+      <section id="home" class="col hero-col">
+        <h1 class="section-title">KinoTupik</h1>
+        <div class="hero">
+          <div class="hero-media" role="img" aria-label="Filmas kadrs"></div>
+          <div class="hero-text">
+            <p>
+              Otrādi ceļot pa kino pasauli – dodies filmu ieteikumu sadaļās, vai
+              veido beigtās ciltis un stāstus kopā ar mums. Mēs mīlam kino un
+              kvalitatīvu stāstu. Uzticies mūsu kopienai un atklāj skatīšanās
+              vērtas filmas.
+            </p>
+          </div>
+        </div>
+
+        <h2 class="sub-title">Populārās filmas</h2>
+        <div id="popularGrid" class="grid grid-3 gap-m"></div>
+
+        <h2 class="sub-title">Par filmu</h2>
+        <article id="selectedMovie" class="selected"></article>
+
+        <h2 class="sub-title">Dažas recenzijas</h2>
+        <ul id="sampleReviews" class="chips"></ul>
+      </section>
+
+      <!-- Column 2: Catalog -->
+      <section id="catalog" class="col catalog-col">
+        <h2 class="section-title">Filmu katalogs</h2>
+        <form id="filters" class="filters">
+          <label>
+            Minimālais vērtējums
+            <input id="minRating" type="range" min="1" max="10" step="1" value="6" />
+            <output id="minRatingValue">6</output>
+          </label>
+          <label>
+            Žanrs
+            <select id="genre">
+              <option value="">Jebkurš</option>
+              <option>drāma</option>
+              <option>misterija</option>
+              <option>sci-fi</option>
+              <option>trilleris</option>
+              <option>avantūra</option>
+              <option>romantika</option>
+              <option>fantāzija</option>
+              <option>mūzika</option>
+              <option>noārs</option>
+            </select>
+          </label>
+        </form>
+        <div id="catalogGrid" class="grid grid-cards gap-m"></div>
+      </section>
+
+      <!-- Column 3: Reviews -->
+      <section id="reviews" class="col reviews-col">
+        <h2 class="section-title">Recenzijas</h2>
+        <div id="reviewsList" class="review-list"></div>
+
+        <h3 class="sub-title">Pievienot recenziju</h3>
+        <form id="reviewForm" class="card form">
+          <label>
+            Filma
+            <select id="reviewMovie"></select>
+          </label>
+          <label>
+            Vārds
+            <input id="reviewAuthor" type="text" placeholder="Jūsu vārds" required />
+          </label>
+          <label>
+            Vērtējums (1–10)
+            <input id="reviewRating" type="number" min="1" max="10" />
+          </label>
+          <label>
+            Atsauksme
+            <textarea id="reviewContent" rows="4" placeholder="Ko domājat par šo filmu?" required></textarea>
+          </label>
+          <button type="submit" class="btn">Nosūtīt</button>
+        </form>
+      </section>
+
+      <!-- Column 4: About + Contact -->
+      <section id="about" class="col about-col">
+        <h2 class="section-title">Par mums</h2>
+        <p class="muted">
+          KinoTupik ir neliela kino kopiena, kas dalās ar ieteikumiem,
+          apskatiem un sarunām par kino. Mēs ticam, ka labas filmas liek domāt
+          un just – un ka par tām ir vērts runāt.
+        </p>
+
+        <h3 id="contact" class="sub-title">Sazināties ar mums</h3>
+        <form id="contactForm" class="card form">
+          <label>Vārds<input id="cName" type="text" required /></label>
+          <label>E-pasts<input id="cEmail" type="email" required /></label>
+          <label>Ziņa<textarea id="cMessage" rows="4" required></textarea></label>
+          <button type="submit" class="btn">Nosūtīt</button>
+          <p id="contactStatus" class="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>© <span id="year"></span> KinoTupik</small>
+    </footer>
+
+    <script src="/static/js/app.js" defer></script>
+  </body>
+</html>
