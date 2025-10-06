@@ -1,9 +1,23 @@
 from __future__ import annotations
 from flask import Flask, jsonify, render_template, request
+from functools import wraps
+import os
 from datetime import datetime
 from typing import List, Dict, Any
 
 app = Flask(__name__)
+
+# --- Simple API key protection ---
+API_KEY = os.environ.get("API_KEY", "ca2e4688")
+
+def require_api_key(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        provided = request.headers.get("X-API-Key") or request.args.get("api_key")
+        if provided != API_KEY:
+            return jsonify({"error": "Nepareiza vai trūkstoša API atslēga"}), 401
+        return func(*args, **kwargs)
+    return wrapper
 
 # --- In-memory sample data (demo only) ---
 movies: List[Dict[str, Any]] = [
@@ -198,6 +212,7 @@ def api_reviews():
     return jsonify({"reviews": [r for r in reviews if r["movieId"] == movie_id]})
 
 @app.post("/api/reviews")
+@require_api_key
 def api_create_review():
     global next_review_id
     data = request.get_json(force=True, silent=True) or {}
@@ -227,6 +242,7 @@ def api_create_review():
 
 # --- API: Contact ---
 @app.post("/api/contact")
+@require_api_key
 def api_contact():
     data = request.get_json(force=True, silent=True) or {}
     name = data.get("name", "")

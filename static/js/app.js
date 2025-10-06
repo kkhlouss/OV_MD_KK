@@ -7,8 +7,11 @@ const state = {
   selectedMovieId: null,
 };
 
-async function api(path, options) {
-  const res = await fetch(path, options);
+const API_KEY = 'ca2e4688';
+
+async function api(path, options = {}) {
+  const headers = Object.assign({ 'X-API-Key': API_KEY }, options.headers || {});
+  const res = await fetch(path, Object.assign({}, options, { headers }));
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
